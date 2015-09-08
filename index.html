@@ -1,0 +1,136 @@
+<html ng-app>
+    <head>
+        <link rel="stylesheet/less" href="css/bootstrap.less">
+        <script src="js3rdparty/less-1.2.1.min.js"></script>
+        <script src='js3rdparty/jquery-1.7.1.min.js'></script>
+        <script src='js3rdparty/bootstrap-tabs.js'></script>
+        <title>스마트 클라우드 서비스(관리자용)</title>
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="Kocom">
+            <div class="sidebar">
+                <div class="well">
+                    <h2>Kocom</h2>
+                </div>
+            </div>
+            <div class="content">
+                <div class="hero-unit">
+                    <h1>스마트 클라우드 서비스</h1>
+                    <p>관리자용 대시보드</p>
+                </div>
+                <div class="row">
+                    <ul class="tabs">
+                        <li class="active"><a href="#public">공공 데이터 등록</a></li>
+                        <li ><a href="#dbdata">공공 데이터 보기</a></li>
+                        <li><a href="#rshiny">분석 서비스 생성</a></li>
+                        <li><a href="#register">TG 등록</a></li>
+                        <li><a href="#ToTG">Push 메시지 전송</a></li>
+                    </ul>
+
+                    <div class="pill-content">
+                        <div id="register">
+                            <div class="span16">
+                                <h2>Thin-Gateway ID 를 입력해주세요.</h2>
+                                Thin-Gateway ID : 
+                                <input type="tgid" id="tgid" class="span2" ng-model="tgid" style="width: 300px; height: 30px;"/>
+                                </br>Secure Number : 
+                                <input type="sn" id="sn" class="span2" ng-model="sn" style="width: 300px; height: 30px;"/>
+                                </br></br>
+                                <input type="submit" class="btn primary" value="Thin-Gateway 등록" ng-click="tgregister()"/>
+                            </div>
+                        </div>
+                        <div id="dbdata">
+                            <div class="span16">
+                            </div>
+                            <div class="span16">
+                                <form>
+                                    <label ng-click="dbrefresh()" style="width: 200px"><input type="radio" ng-model="collection" value="airinfo" style="margin-right: 10px">기상정보 공공 데이터</label>
+                                    <br><br></form>
+                                <table class="bordered-table">
+                                    <thead>
+                                        <tr>
+                                            <th>시간</th>
+                                            <th>이산화황 수치</th>
+                                            <th>일산화탄소 수치</th>
+                                            <th>오존 수치</th>
+                                            <th>이산화질소 수치</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="item in pdata">
+                                        <tr>
+                                            <td ng-bind="item.datatime"></td>
+                                            <td ng-bind="item.so2value"></td>
+                                            <td ng-bind="item.covalue"></td>
+                                            <td ng-bind="item.o3value"></td>
+                                            <td ng-bind="item.no2value"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--            <input type="submit" class="btn primary" value="dbrefresh" ng-click=""/>-->
+                            </div>
+
+                        </div>
+
+                        <div  class="active"  id="public">
+
+                            <div class="span16">
+
+                                <h2>공공 데이터 등록</h2>
+
+                                <a href="http://www.data.go.kr" target = "_blank">공공 데이터 포털 바로가기</a>
+                                <br><br>
+                                공공 데이터 API 주소 : <br>
+                                <input type="publicAddress" id="publicAddress" class="span3" ng-model="publicAddress" style="width: 500px; height: 30px;"/>
+                                <br><br>
+                                공공 데이터 API 키 : <br>
+                                <input type="APIkey" id="APIkey" class="span3" ng-model="APIkey" style="width: 500px; height: 30px;"/>
+                                <br><br>
+                                공공 데이터 이름 : <br>
+                                <input type="DataName" id="DataName" class="span3" ng-model="DataName" style="width: 500px; height: 30px;"/>
+                                <br><br>
+                                지역별 날씨 x변환 좌표 : <br>
+                                <input type="nx" id="nx" class="span3" ng-model="nx" style="width: 500px; height: 30px;"/>
+                                <br><br>
+                                지역별 날씨 y변환 좌표 : <br>
+                                <input type="ny" id="ny" class="span3" ng-model="ny" style="width: 500px; height: 30px;"/>
+                                <br><br>
+                                데이터 업데이트 주기(단위: 시간) : <br>
+                                <input type="period" id="period" class="span3" ng-model="period" style="width: 500px; height: 30px;"/>
+                                <br><br><br>
+                                <input type="submit" class="btn primary" value="공공 데이터 등록" ng-click="pdregister()"/>
+                            </div>
+                        </div>
+                        <div id="ToTG">
+                            <div class="span16">
+                                <input type="submit" class="btn primary" value="EPL1" ng-click="epl1()" style="width: 150px; margin-right: 15px"/>조도가 기준치보다 낮을시 ACT On하는 EPL 등록
+                                <br><br>
+                                <input type="submit" class="btn primary" value="EPL2" ng-click="epl2()" style="width: 150px; margin-right: 15px"/>조도가 기준치보다 높을시 ACT Off하는 EPL 등록
+                                <br><br>
+                                <input type="submit" class="btn primary" value="ACT On" ng-click="acton()" style="width: 150px; margin-right: 15px"/>스마트 클라우드 분석에 따른 ACT On 명령 실행
+                                <br><br>
+                                <input type="submit" class="btn primary" value="ACT Off" ng-click="actoff()" style="width: 150px; margin-right: 15px"/>스마트 클라우드 분석에 따른 ACT Off 명령 실행
+                            </div>
+                        </div>
+                        <div id="rshiny">
+                            <div class="span16">
+                                <iframe id='widget_post_frame' name='widget_post_frame' src='http://192.168.1.200:3838/shinytest/' scrolling='no' frameborder='0' allowtransparency='true' style='width:100%;height:3000px'></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        $(function () {
+            $('.tabs').tabs();
+        })
+    </script>
+    <script src='js3rdparty/sockjs-min-0.3.4.js'></script>
+    <script src='js3rdparty/angular-1.0.1.js'></script>
+    <script src='js/vertxbus.js'></script>
+    <script src='js/client_app.js'></script>
+
+</html>

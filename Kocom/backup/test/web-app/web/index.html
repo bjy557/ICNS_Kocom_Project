@@ -1,0 +1,202 @@
+<html ng-app>
+<head>
+  <link rel="stylesheet/less" href="css/bootstrap.less">
+  <script src="js3rdparty/less-1.2.1.min.js"></script>
+  <script src='js3rdparty/jquery-1.7.1.min.js'></script>
+  <script src='js3rdparty/bootstrap-tabs.js'></script>
+  <title>Kocom Dashboard</title>
+</head>
+
+<body>
+
+<div class="container-fluid" ng-controller="CartController">
+
+  <div class="sidebar">
+    <div class="well">
+      <h2>Kocom</h2>
+    </div>
+
+    <form class="form-stacked">
+      <label for="username">Username</label>
+      <input type="text" id="username" class="span2"
+             ng-model="username"/>
+      <label for="password">Password</label>
+      <input type="password" id="password" class="span2"
+             ng-model="password"/>
+      <br><br>
+      <input type="submit" class="btn primary" value="Login"
+             ng-click="login()"/>
+    </form>
+
+    <br>
+
+    <div ng-show="loggedIn">
+      <h3>Logged in as</h3>
+
+      <h3><strong ng-bind="username"></strong></h3>
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <div class="hero-unit">
+      <h1>Welcome to SmardHome Dashboard</h1>
+
+      <p>dashboard prototype</p>
+    </div>
+
+    <div class="row">
+
+      <ul class="tabs">
+        <li class="active"><a href="#register">Registor</a></li>
+        <li><a href="#dbdata">DBData</a></li>
+        <li><a href="#public">PublicData</a></li>
+        <li><a href="#push">Push</a></li>
+        <li><a href="#tab3">tap3</a></li>
+      </ul>
+
+      <div class="pill-content">
+
+        <div class="active" id="register">
+
+          <div class="span16">
+
+            <h2>Please Insert Thingate Way ID</h2>
+            <input type="tgid" id="tgid" class="span2"
+             ng-model="tgid"/>
+            <br><br>
+            <input type="submit" class="btn primary" value="Register"
+             ng-click="tgregister()"/>
+          </div>
+
+        </div>
+
+        <div id="dbdata">
+
+          <div class="alert-message info fade in"
+               ng-show="orderSubmitted">
+            <p><strong>Your order has been accepted!</strong></p>
+          </div>
+
+          <div class="alert-message warn fade in"
+               ng-show="!orderReady()">
+            <p><strong>Please add some item(s) to your cart and login before
+              submitting.</strong></p>
+          </div>
+
+          <div class="span16">
+
+            <form>
+              <fieldset>
+                <legend>Cart</legend>
+
+                <div class="actions">
+                  <input type="submit" class="btn primary" value="Submit Order"
+                         ng-click="submitOrder()"/>
+                </div>
+
+              </fieldset>
+            </form>
+
+          </div>
+
+          <div class="span16">
+
+            <table class="bordered-table">
+              <thead>
+              <tr>
+                <th>Genre</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+              </thead>
+              <tbody ng-repeat="item in items">
+              <tr>
+                <td ng-bind="item.album.genre"></td>
+                <td ng-bind="item.album.artist"></td>
+                <td ng-bind="item.album.title"></td>
+                <td ng-bind="item.album.price | currency"></td>
+                <td ng-bind="item.quantity"></td>
+                <td><a href="#"
+                       ng-click="removeFromCart(item)">Remove</a></td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+
+        <div id="public">
+          
+          <div class="span16">
+
+            <h2>Register PublicData</h2>
+
+            <a hrep="http://www.data.go.kr" title="공공데이터센터" target = "_blank">public data center link</a>
+            <br><br>
+            API Address : 
+            <input type="publicAddress" id="publicAddress" class="span3"
+             ng-model="publicAddress"/>
+            <br><br>
+            API Key : 
+            <input type="APIkey" id="APIkey" class="span3"
+             ng-model="APIkey"/>
+             <br><br>
+            Period(hour) : 
+            <input type="period" id="period" class="span3"
+             ng-model="period"/>
+            <br><br>
+            <input type="submit" class="btn primary" value="Register"
+             ng-click="pdregister()"/>
+
+          </div>
+
+        </div>
+
+        <div id="push">
+          <div class="span16">
+
+            <h2>Please push message</h2>
+            topic : 
+            <input type="topic" id="topic" class="span16"
+             ng-model="topic"/>
+            <br><br>
+            message : 
+            <input type="message" id="message" class="span16"
+             ng-model="message"/>
+            <br><br>
+            <input type="submit" class="btn primary" value="push"
+             ng-click="push()"/>
+          </div>
+
+        </div>
+
+        <div id="tab3">
+
+          
+        </div>
+        
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script>
+  $(function () {
+    $('.tabs').tabs();
+  })
+</script>
+<script src='js3rdparty/sockjs-min-0.3.4.js'></script>
+<script src='js3rdparty/angular-1.0.1.js'></script>
+<script src='js/vertxbus.js'></script>
+<script src='js/client_app.js'></script>
+
+</html>

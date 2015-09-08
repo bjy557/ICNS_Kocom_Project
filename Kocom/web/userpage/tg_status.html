@@ -1,0 +1,184 @@
+<html ng-app>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <script src='js3rdparty/jquery-1.7.1.min.js'></script>
+        <script src='js3rdparty/sockjs-min-0.3.4.js'></script>
+        <script src='js3rdparty/angular-1.0.1.js'></script>
+        <script src='js/vertxbus.js'></script>
+        <script src='js/client_app.js'></script>
+
+        <title>Kocom Dashboard</title>
+    </head>
+    <body>
+        <header id="header" ng-controller="HeaderController"><!--header-->
+            <div class="header-middle"><!--header-middle-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="logo pull-right">
+                                <a href="index.html"><img src="images/home/kocom.PNG" alt="" /></a>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                        Lee
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Sang</a></li>
+                                        <li><a href="#">HyuB</a></li>
+                                        <li><a href="#">Zzang</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                        Kocom
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">is</a></li>
+                                        <li><a href="#">good</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="shop-menu pull-right">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#"><i class="fa fa-user"></i> User_info</a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i> Thin-Gateway</a></li>
+                                    <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Service</a></li>
+                                    <li><a href="login.html"><i class="fa fa-lock"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom"><!--header-bottom-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="mainmenu pull-left">
+                                <ul class="nav navbar-nav collapse navbar-collapse">
+                                    <li><a href="index.html"> Home</a></li>
+
+                                    <li><a href="404.html">Management</a></li>
+                                    <li><a href="tg_status.html">Status</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="search_box pull-right">
+                                <input type="text" placeholder="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header-bottom-->
+
+
+        </header>
+        <div class="row margin_clear" ng-controller="TGStatusController">    		
+            <div class="col-sm-12">    			   			
+                <h2 class="title text-center">Thin-Gateway  <strong> Status</strong></h2>    			    				    				
+            </div>
+            <div class="step-one">
+                <h2 class="heading">Thin-Gateway.01</h2>
+                <div class="shopper-informations">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="shopper-info">
+                                <p> Rack List</p>
+
+                                <div>
+                                    <ul ng-repeat="rack in RackList">
+                                        <!--<li><a href="" ng-click="rackClicked($index, rack)">{{rack}}</a></li>-->
+                                        <li><a href="" ng-click="printActList()">{{rack}}</a></li>
+                                     
+                                    </ul>
+                                </div>
+                                <form>
+                                    <input type="text" placeholder=" Rack01 Status">
+                                    <input type="text" placeholder=" Rack02 Status">
+                                    <input type="text" placeholder=" Rack03 Status">
+                                    <input type="text" placeholder=" Rack04 Status">
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="shopper-info">
+                                <p>Actuator List</p>
+                                <form>
+                                    <input type="text" placeholder="Actuator01 Status">
+                                    <input type="text" placeholder="Actuator02 Status">
+                                    <input type="text" placeholder="Actuator03 Status">
+                                    <input type="text" placeholder="Actuator04 Status">
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>		 		
+            <div class="step-one">
+                <h2 class="heading">Thin-Gateway.02</h2>
+                <div class="shopper-informations">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="shopper-info">
+                                <p> Rack List</p>
+                                <form>
+
+                                    <input type="text" placeholder=" Rack01 Status">
+                                    <input type="text" placeholder=" Rack02 Status">
+                                    <input type="text" placeholder=" Rack03 Status">
+                                    <input type="text" placeholder=" Rack04 Status">
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="shopper-info">
+                                <p>Actuator List</p>
+                                <form>
+                                    <input type="text" placeholder="Actuator01 Status">
+                                    <input type="text" placeholder="Actuator02 Status">
+                                    <input type="text" placeholder="Actuator03 Status">
+                                    <input type="text" placeholder="Actuator04 Status">
+
+
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

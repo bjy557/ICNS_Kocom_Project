@@ -1,0 +1,21 @@
+<html lang = "ko">
+<head>
+	<meta charset="utf-8">
+	<title> time script test </title>
+</head>
+
+<body>	
+	<script>
+		var apikey = "g2PYYeRkm4XwNs5SkT%2BEm6ZWuLXQCBNLJ4jdEH43rTuU0WjKjo%2B2IBtyAr1EJmS2QqsImnnT3RCr5RNBZ0d25A%3D%3D";
+		var serviceURL = "newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService/ForecastGrib?base_date=20150717&pageNo=6&numOfRows=1&nx=62&ny=120";
+		var time = new Date();
+		var fullurl = serviceURL + '&base_time=' + time.getHours() + '00&serviceKey=' +apikey;
+		document.write(fullurl);
+	</script>
+	
+<body>
+</html>	
+
+
+newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService/ForecastGrib?base_date=20150717&pageNo=6&numOfRows=1&nx=62&ny=120&base_time=1600&serviceKey=g2PYYeRkm4XwNs5SkT%2BEm6ZWuLXQCBNLJ4jdEH43rTuU0WjKjo%2B2IBtyAr1EJmS2QqsImnnT3RCr5RNBZ0d25A%3D%3D
+newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService/ForecastGrib?base_date=20150717&base_time=1500&nx=62&ny=120&pageNo=6&numOfRows=1&ServiceKey=g2PYYeRkm4XwNs5SkT%2BEm6ZWuLXQCBNLJ4jdEH43rTuU0WjKjo%2B2IBtyAr1EJmS2QqsImnnT3RCr5RNBZ0d25A%3D%3D

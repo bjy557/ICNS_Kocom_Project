@@ -1,0 +1,109 @@
+<html ng-app>
+<head>
+  <link rel="stylesheet/less" href="css/bootstrap.less">
+  <script src="js3rdparty/less-1.2.1.min.js"></script>
+  <script src='js3rdparty/jquery-1.7.1.min.js'></script>
+  <script src='js3rdparty/bootstrap-tabs.js'></script>
+  <title>Kocom Dashboard</title>
+</head>
+
+<body>
+
+<div class="container-fluid" ng-controller="CartController">
+
+  <div class="sidebar">
+    
+    <form class="form-stacked">
+      <label for="username">Username</label>
+      <input type="text" id="username" class="span2"
+             ng-model="username"/>
+      <label for="password">Password</label>
+      <input type="password" id="password" class="span2"
+             ng-model="password"/>
+      <br><br>
+      <input type="submit" class="btn primary" value="Login"
+             ng-click="login()"/>
+    </form>
+
+    <br>
+
+    <div ng-show="loggedIn">
+      <h3>Logged in as</h3>
+
+      <h3><strong ng-bind="username"></strong></h3>
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <div class="hero-unit">
+      <h1>Welcome to Kocom Dashboard</h1>
+
+      <p>Dashboard Prototype</p>
+    </div>
+
+    <div class="row">
+
+      <div class="pill-content">
+
+        <div id="cart">
+
+          <div class="span16">
+
+            <form>
+              <fieldset>
+                <legend>Register</legend>
+
+                <label for="username">Thingateway ID :</label>
+                <input type="text" id="tgid" class="span2" ng-model="username"/>
+                <input type="submit" class="btn primary" value="register" ng-click="registor()"/>
+              </fieldset>
+            </form>
+
+          </div>
+
+          <div class="span16">
+
+            <table class="bordered-table">
+              <thead>
+              <tr>
+                <th>tgid</th>
+                <th>lacknumber</th>
+                <th>Data</th>
+                <th>Date</th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="item in items">
+              <tr>
+                <td ng-bind="item.album.genre"></td>
+                <td ng-bind="item.album.artist"></td>
+                <td ng-bind="item.album.title"></td>
+                <td ng-bind="item.album.price | currency"></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script>
+  $(function () {
+    $('.tabs').tabs();
+  })
+</script>
+<script src='js3rdparty/sockjs-min-0.3.4.js'></script>
+<script src='js3rdparty/angular-1.0.1.js'></script>
+<script src='js/vertxbus.js'></script>
+<script src='js/client_app.js'></script>
+
+</html>
