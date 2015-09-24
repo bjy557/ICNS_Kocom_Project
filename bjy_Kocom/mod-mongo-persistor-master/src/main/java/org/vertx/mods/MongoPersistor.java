@@ -62,7 +62,10 @@ public class MongoPersistor extends BusModBase implements Handler<Message<JsonOb
 
     host = getOptionalStringConfig("host", "localhost");
     port = getOptionalIntConfig("port", 27017);
-    dbName = getOptionalStringConfig("db_name", "default_db");
+    dbName = getOptionalStringConfig("db_name", "scconfig");
+    
+    
+    
     username = getOptionalStringConfig("username", null);
     password = getOptionalStringConfig("password", null);
     readPreference = ReadPreference.valueOf(getOptionalStringConfig("read_preference", "primary"));

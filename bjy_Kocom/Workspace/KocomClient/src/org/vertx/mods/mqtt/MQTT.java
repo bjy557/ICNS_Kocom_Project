@@ -27,7 +27,7 @@ public class MQTT extends BusModBase implements Handler<Message<JsonObject>>
     protected String Address; // Vertx Event Bus Address... (set mqttclient)
     protected JsonObject dbConfig; // Mongodb Config(ip,port...)
     //protected String deployID;
-    protected String dbname; // Mongodb DBname
+    protected String db_name; // Mongodb DBname
     protected String keytopic; // Mqtt Key Topic(ex) keytopic/ACT)
 	protected String key; // Encrypt Key
     protected static String IV = "AAAAAAAAAAAAAAAA"; // Packing string
@@ -133,10 +133,14 @@ public class MQTT extends BusModBase implements Handler<Message<JsonObject>>
             }
 
             public void messageArrived(String arg0, MqttMessage arg1)
-                throws Exception
             {
-                JsonObject doc = new JsonObject(arg1.toString());
-                subscribeFunc(doc, dbConfig, arg0);
+            	try {
+            		JsonObject doc = new JsonObject(arg1.toString());
+                    subscribeFunc(doc, dbConfig, arg0);	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+                
             }
         });
     }
@@ -154,6 +158,9 @@ public class MQTT extends BusModBase implements Handler<Message<JsonObject>>
     	String[] divid = topicName.split("\\/"); // divide full topic....
     	final String TGID = divid[2];
     	final String FuncID = divid[1];
+    	
+    	System.out.println("***** Topic name : " + topicName);
+    	
     	eb = vertx.eventBus();
     	container.deployModule("mongo-persistor", dbConfig, new Handler<AsyncResult<String>>() {
     		@Override
@@ -161,10 +168,10 @@ public class MQTT extends BusModBase implements Handler<Message<JsonObject>>
     			switch(FuncID)
     			{
     			case "Log": 
-    				dbname = "logdata";
+    				db_name = "logdata";
     				break;
     			case "TGdata": 
-    				dbname = "sensordata";
+    				db_name = "sensordata";
     				break;
     			case "EPL":
     			case "ACT":
@@ -176,7 +183,7 @@ public class MQTT extends BusModBase implements Handler<Message<JsonObject>>
     			doc.removeField("type");
     			if(dbConfig.containsField("db_name"))
     				dbConfig.removeField("db_name");
-    			dbConfig.putString("db_name", dbname);
+    			dbConfig.putString("db_name", db_name);
     			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
     			Date currentTime = new Date();
     			String dTime = formatter.format(currentTime); // add to time at message
